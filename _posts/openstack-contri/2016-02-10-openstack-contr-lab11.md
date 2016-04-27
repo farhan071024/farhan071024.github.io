@@ -4,7 +4,7 @@ title: Lab 11 TEST
 categories: openstack-contri
 ---
 
-This is a  big big big big TEST 
+This is not that big TEST 
 
 Step 1 - Clone Stackalytics Repo
 
