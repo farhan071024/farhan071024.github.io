@@ -47,23 +47,7 @@
 <div class=container id="post">
   <a href="/#/"><h1>Go back</h1></a>
 
-	<h1 class="post-title">Course 4 Creating partitions and logical volumes</h1>
-
-	
-
-	     
-
-	
-
-	     
-
-	
-
-	     
-
-	
-
-	     
+	<h1 class="post-title">Lab 11 TEST</h1>
 
 	
 
@@ -105,7 +89,7 @@
 
 	     
 	    
-	       <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3tSbbJE-P4Y" frameborder="0" allowfullscreen></iframe></div>
+	       <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xAJwW9SKgj8" frameborder="0" allowfullscreen></iframe></div>
 
           <br>
           <div class="alert alert-info" role="alert">
@@ -196,60 +180,103 @@
 
 	
 
-	<hr />
-<p>#### Course 4: Creating partitions and logical volumes #</p>
+	     
 
-<hr />
+	
 
-<p>LVM Settings</p>
+	     
 
-<p>In order to set up the storage node and containers, you need to determine the current condition of the node. You will ssh into the storage node as follows:</p>
+	
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>ssh root@10.241.1.54
+	     
+
+	
+
+	     
+
+	
+
+	<p>This is a TEST</p>
+
+<p>Step 1 - Clone Stackalytics Repo</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh &lt;yourip&gt;
+git clone https://git.openstack.org/openstack/stackalytics.git
+<span class="sb">```</span>sh
+
+Step 2 - Set up the Local Repo <span class="k">for </span>Git Review
+
+<span class="sb">```</span>sh
+<span class="nb">cd </span>stackalytics
+git review -s
 </code></pre>
 </div>
 
-<p>Then, check current partitions available using:</p>
+<p>Step 3 - Create a New Branch for the Proposed Change</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>fdisk -l
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b update_user_info
 </code></pre>
 </div>
 
-<p>The above is a lowercase L. It will list the partitions for all devices unless you provide a 3rd argument, which would point fdisk to the specific device you desire to list the partitions of.</p>
+<p>Step 4 - Edit the default_data.json file</p>
 
-<p>Next, use the following to display the current existing physical volumes:</p>
+<p>Place your entry in alphabetical order of the launchpad_id: &lt;vi,nano,etc&gt; etc/default_data.json</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pvdisplay
+<p>Here is an example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="w">     </span><span class="p">{</span><span class="w">
+           </span><span class="nt">"launchpad_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lisasmith"</span><span class="p">,</span><span class="w">
+           </span><span class="nt">"gerrit_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lisa-smith"</span><span class="p">,</span><span class="w">
+           </span><span class="nt">"companies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+               </span><span class="p">{</span><span class="w">
+                   </span><span class="nt">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Intel"</span><span class="p">,</span><span class="w">
+                   </span><span class="nt">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+               </span><span class="p">}</span><span class="w">
+           </span><span class="p">],</span><span class="w">
+           </span><span class="nt">"user_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lisa Smith"</span><span class="p">,</span><span class="w">
+           </span><span class="nt">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"lisa.smith@intel.com"</span><span class="p">,</span><span class="w"> </span><span class="s2">"lisasmith@example.com"</span><span class="p">]</span><span class="w">
+       </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Step 5 - Check the Git Status</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git status
 </code></pre>
 </div>
 
-<p>After you have found that there are no current physical volumes and have identified the hard drive partitions available, use the following command to create the physical volume:</p>
+<p>Step 6 - Stage the File for Commiting</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pvcreate /dev/sdb1
+<div class="highlighter-rouge"><pre class="highlight"><code>git add .
 </code></pre>
 </div>
 
-<p>Use the following command to view current partitions:</p>
+<p>Step 7 - Check the Git Status Again</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>fdisk /dev/sdb
+<div class="highlighter-rouge"><pre class="highlight"><code>git status
 </code></pre>
 </div>
 
-<p>Traversing the help menu for fdisk will allow you to set up partitions, view partitions, delete partitions, or whatever else is necessary given your specific parameters. For creating new partitions, we chose to use the default settings rather than specify anything.</p>
+<p>Step 8 - Commit the File</p>
 
-<p>Then, you need to create your volume group, naming it “cinder-volumes”:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>vgcreate cinder-volumes /dev/sdb1
+<div class="highlighter-rouge"><pre class="highlight"><code>git commit -a
 </code></pre>
 </div>
 
-<p>Finally, display the volume groups to ensure that your work was done correctly:</p>
+<p>Step 9 - Write Your Commit Message</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>vgdisplay
+<div class="highlighter-rouge"><pre class="highlight"><code>Update info <span class="k">for </span>Lisa Smith
 </code></pre>
 </div>
 
-<hr />
+<p>Step 10 - Git Review to Send the Change</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git review
+</code></pre>
+</div>
+
+<p>A link to the change in Gerrit should be displayed in the console.</p>
+
 
 
 
